@@ -143,3 +143,19 @@ The policy should look something like the following, pay attention to line 5 for
             ]
         }
 ```
+
+## Testing
+To test if everything works as expected, a test event can be triggered. This test event needs to mimic an EventBridge event such as the one below.
+```json
+{
+  "id": "53dc4d37-cffa-4f76-80c9-8b7d4a4d2eaa",
+  "detail-type": "Scheduled Event",
+  "source": "aws.events",
+  "account": "123456789012",
+  "time": "2019-10-08T16:53:06Z",
+  "region": "eu-west-1",
+  "resources": [ "arn:aws:events:eu-west-1:123456789012:rule/MyScheduledRule" ],
+  "detail": {},
+  "version": ""
+}
+```

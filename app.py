@@ -26,7 +26,6 @@ def main(logger):
         raise InvalidDestinationPath(export_path)
     date_export_path = f"{export_path}{datetime.now().year}/{datetime.now().month}/{datetime.now().day}/"
     logger.setLevel(getattr(logging, log_level))
-    logger.getLogger('botocore').setLevel(logging.ERROR)
     try:
         if landing_zone_name:
             report_data, exporter_arguments = get_landing_zone_reporting_data(landing_zone_name=landing_zone_name,
