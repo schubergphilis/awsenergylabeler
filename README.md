@@ -9,8 +9,9 @@ To make the deployment as easy as possible, [Chalice](https://github.com/aws/cha
 git clone https://github.com/schubergphilis/awsenergylabeler.git
 cd awsenergylabeler
 pipx install chalice
-cp config_example_single.json config.json
-vim config.json
+cp .chalice/config_example_single.json .chalice/config.json
+cp .chalice/EnergyLabelerPolicy_example.json .chalice/EnergyLabelerPolicy.json
+# <EDIT BOTH CONFIG FILES>
 chalice deploy --stage prod
 ```
 
@@ -39,20 +40,55 @@ Before starting to deploy, a couple of variables need to be set in the configura
 
 
 #### Landing Zone
-To set up the EnergyLabeler for your Landing Zone create a `config.json` and use the `config_example_single.json` as a starting point. Fill in all details for your environment in the environment variables.
+To set up the EnergyLabeler for your Landing Zone create a `config.json` and use the `config_example_single.json` as a starting point. Fill in all details for your environment in the environment variables on lines 6 to 10.
+```json
+     "environment_variables": {
+        "LANDING_ZONE_NAME": "LANDINGZONE",
+        "REGION": "eu-west-1",
+        "EXPORT_PATH": "s3://bucket/team/"
+      }
+```
 
 At least the following variables need to be set:
 * LANDING_ZONE_NAME	
 * REGION
 * EXPORT_PATH
 
+Make sure that line 15 `"iam_policy_file": "EnergyLabelerPolicy_example.json"` refers to the policy you'll create next.
+
+Next, also copy the `EnergyLabelerPolicy_example.json` to create `EnergyLabelerPolicy.json`. Make sure to update the S3 bucket resources on line 10 to 12.
+```json
+      "Resource": [
+        "arn:aws:s3:::bucket/team/*",
+        "arn:aws:s3:::bucket/team"
+      ]
+```
+
 #### Single account
-To set up the EnergyLabeler for a single account create a `config.json` and use the `config_example_single.json` as a starting point. Fill in all details for your environment in the environment variables.
+To set up the EnergyLabeler for a single account create a `config.json` and use the `config_example_single.json` as a starting point. Fill in all details for your environment in the environment variables on lines 6 to 10.
+
+```json
+      "environment_variables": {
+        "SINGLE_ACCOUNT_ID": "123456789012",
+        "REGION": "eu-west-1",
+        "EXPORT_PATH": "s3://bucket/team/"
+      }
+```
 
 At least the following variables need to be set:
 * SINGLE_ACCOUNT_ID	
 * REGION
 * EXPORT_PATH
+
+Make sure that line 15 `"iam_policy_file": "EnergyLabelerPolicy_example.json"` refers to the policy you'll create next.
+
+Next, also copy the `EnergyLabelerPolicySingle_example.json` to create `EnergyLabelerPolicy.json`. Make sure to update the S3 bucket resources on line 10 to 12.
+```json
+      "Resource": [
+        "arn:aws:s3:::bucket/team/*",
+        "arn:aws:s3:::bucket/team"
+      ]
+```
 
 #### All environment variables
 The following variables can/should be set:
@@ -83,4 +119,27 @@ After this is done you should see some new resources being created in your envir
 
 ## Manual actions
 A last action that needs to be performed is in the receiving S3 bucket.
-The S3 bucket policy needs to allow PutObject by the role created by Chalice.
+The S3 bucket policy needs to allow PutObject by the role created by Chalice. If you are not the owner of the bucket, reach out to the owner to get the permissions set up. 
+
+The policy should look something like the following, pay attention to line 5 for the role name, and lines 15 to 18 for the specific folder in the bucket.
+```json
+{
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/RoleName"
+            },
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:ListBucketMultipartUploads",
+                "s3:ListMultipartUploadParts",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucket",
+                "arn:aws:s3:::bucket/team/*"
+            ]
+        }
+```
