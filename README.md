@@ -19,7 +19,7 @@ chalice deploy --stage prod
 Normally speaking, you're managing an entire AWS Landing Zone. This should include a dedicated Audit account, where all SecurityHub findings are centrally gathered. The EnergyLabeler is designed to run in your Audit account, so findings from all accounts can be retrieved and scored accordingly. The EnergyLabeler will calculate a score per account and an over-all score for the entire Landing Zone.
 
 ### Single account
-In certain cases you might not have access to the Audit account (in a different responsibility/engagement model). For these cases the possibility exists to run the EnergyLabeler in a "single account" mode. In this mode, only the account where the lambda runs will be scored. This method should only be used if running on the entire Landing Zone is impossble.
+In certain cases you might not have access to the Audit account (in a different responsibility/engagement model). For these cases the possibility exists to run the EnergyLabeler in a "single account" mode. In this mode, only the account where the lambda runs will be scored. This method should only be used if running on the entire Landing Zone is impossible.
 
 ## Getting started
 In order to get started, we need to prepare your environment.
