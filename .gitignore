@@ -1,0 +1,4 @@
+.chalice/config.json
+.idea/
+deployed/
+deployments/

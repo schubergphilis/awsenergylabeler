@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "app_name": "aws_energy_labeler",
+  "stages": {
+    "prod": {
+      "environment_variables": {
+        "LANDING_ZONE_NAME": "LANDINGZONE",
+        "REGION": "eu-west-1",
+        "EXPORT_PATH": "s3://bucket/team/"
+      },
+      "lambda_functions": {
+        "handler": {
+          "lambda_timeout": 300,
+          "autogen_policy": false,
+          "iam_policy_file": "EnergyLabelerPolicy_example.json"
+        }
+      }
+    }
+  }
+}
