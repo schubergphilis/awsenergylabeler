@@ -4,13 +4,13 @@
   "stages": {
     "prod": {
       "environment_variables": {
-        "LANDING_ZONE_NAME": "LANDINGZONE",
-        "REGION": "eu-west-1",
-        "EXPORT_PATH": "s3://bucket/team/"
+        "AWS_LABELER_AUDIT_ZONE_NAME": "AUDITZONE",
+        "AWS_LABELER_REGION": "eu-west-1",
+        "AWS_LABELER_EXPORT_PATH": "s3://bucket/team/"
       },
       "lambda_functions": {
         "handler": {
-          "lambda_timeout": 300,
+          "lambda_timeout": 900,
           "lambda_memory_size": 256,
           "autogen_policy": false,
           "iam_policy_file": "EnergyLabelerPolicy_example.json"

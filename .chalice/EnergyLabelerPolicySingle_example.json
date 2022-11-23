@@ -19,6 +19,7 @@
         "iam:ListAccountAliases",
         "ec2:DescribeRegions",
         "securityhub:ListFindingAggregators",
+        "securityhub:ListEnabledProductsForImport",
         "securityhub:GetFindings"
       ],
       "Resource": "*"
