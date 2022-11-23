@@ -43,7 +43,7 @@ Before starting to deploy, a couple of variables need to be set in the configura
 To set up the EnergyLabeler for your Landing Zone create a `config.json` and use the `config_example_single.json` as a starting point. Fill in all details for your environment in the environment variables on lines 6 to 10.
 ```json
      "environment_variables": {
-        "AWS_LABELER_AUDIT_ZONE_NAME": "AUDITZONE",
+        "AWS_LABELER_ORGANIZATIONS_ZONE_NAME": "ORG_ZONE",
         "AWS_LABELER_REGION": "eu-west-1",
         "AWS_LABELER_EXPORT_PATH": "s3://bucket/team/"
       }
@@ -69,9 +69,9 @@ To set up the EnergyLabeler for an audit zone or a single account create a `conf
 
 ```json
       "environment_variables": {
-        "SINGLE_ACCOUNT_ID": "123456789012",
-        "REGION": "eu-west-1",
-        "EXPORT_PATH": "s3://bucket/team/"
+        "AWS_LABELER_AUDIT_ZONE_NAME": "AUDIT_ZONE",
+        "AWS_LABELER_REGION": "eu-west-1",
+        "AWS_LABELER_EXPORT_PATH": "s3://bucket/team/"
       }
 ```
 
